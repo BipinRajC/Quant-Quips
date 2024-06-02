@@ -2,6 +2,7 @@ import streamlit as st
 from datetime import datetime, timedelta
 import yfinance as yf
 import plotly.express as px
+import time
 st.set_page_config(page_title="Data Board", page_icon="chart_with_upwards_trend", layout='wide')
 
 # Function to fetch real-time stock data during market hours
@@ -72,50 +73,35 @@ else:
     st.warning("Nifty or Sensex market is closed. Real-time data is available only during market hours.")
 st.write("Auto-refreshing every 1 minute.")
 
-ticker_needed = st.selectbox("Select a stock ticker", ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA","NVDA"])  
-ticker_needed=st.text_input("Enter a stock ticker")
 
+ticker_needed = st.selectbox("Select a stock ticker", ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA","NVDA"], index=None)
 
-ticker_needed = yf.Ticker(ticker_needed)
-ticker_info = ticker_needed.info
-ticker_needed.info
+if not ticker_needed:
+    with st.spinner("Enter a stock ticker to fetch data"):
+        ticker_needed = st.text_input("Enter a stock ticker")
 
-# get historical market data
-hist = ticker_needed.history(period="1mo")
+@st.cache_resource
+def print_Details(ticker_needed:str):
+    ticker_needed = yf.Ticker(ticker_needed)
+    #ticker_needed.info
 
-# show meta information about the history (requires history() to be called first)
-ticker_needed.history_metadata
+    # get historical market data
+    
+    return ticker_needed
 
-# show actions (dividends, splits, capital gains)
-ticker_needed.actions
-ticker_needed.dividends
-ticker_needed.splits
-ticker_needed.capital_gains  # only for mutual funds & etfs
+if "ticker_cached" not in st.session_state:
+    st.session_state["ticker_cached"] = {}
+    
+    
+ticker_list = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA","NVDA"]
+for ticker in ticker_list:
+    st.session_state["ticker_cached"].update({ticker:print_Details(ticker)})
 
-# show share count
-ticker_needed.get_shares_full(start="2022-01-01", end=None)
-
-# show financials:
-# - income statement
-ticker_needed.income_stmt
-ticker_needed.quarterly_income_stmt
-# - balance sheet
-ticker_needed.balance_sheet
-ticker_needed.quarterly_balance_sheet
-# - cash flow statement
-ticker_needed.cashflow
-ticker_needed.quarterly_cashflow
-# see `Ticker.get_income_stmt()` for more options
-
-# show holders
-ticker_needed.major_holders
-ticker_needed.institutional_holders
-ticker_needed.mutualfund_holders
-ticker_needed.insider_transactions
-ticker_needed.insider_purchases
-ticker_needed.insider_roster_holders
-
-# show recommendations
-ticker_needed.recommendations
-ticker_needed.recommendations_summary
-ticker_needed.upgrades_downgrades
+if ticker_needed:
+    if  st.session_state["ticker_cached"].get(ticker_needed) == None :
+            st.session_state["ticker_cached"]|={ticker_needed:print_Details(ticker_needed)}
+            with st.spinner("Crunching Numbers"):
+                time.sleep(4)
+            st.session_state["ticker_cached"][ticker_needed].info
+    else:
+        st.session_state["ticker_cached"][ticker_needed].info
