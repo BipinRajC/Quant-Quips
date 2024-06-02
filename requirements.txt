@@ -1,6 +1,7 @@
 altair==5.3.0
 anyio==4.4.0
 attrs==23.2.0
+backtrader==1.9.78.123
 beautifulsoup4==4.12.3
 blinker==1.8.2
 cachetools==5.3.3
@@ -30,6 +31,7 @@ pandas==2.2.2
 peewee==3.17.5
 pillow==10.3.0
 platformdirs==4.2.2
+plotly==5.22.0
 protobuf==4.25.3
 pyarrow==16.1.0
 pydeck==0.9.1
