@@ -50,7 +50,7 @@ class dataScraper():
 
 def main():
     downloader = dataScraper
-    downloader.download_data("AAPL","US")
-    downloader.bulk_download_data(countryName = "IND",tickerListPath = "data/tickerList/indian_companies.csv")
+    downloader.download_data("NVDA","US")
+    #downloader.bulk_download_data(countryName = "IND",tickerListPath = "data/tickerList/indian_companies.csv")
     
 main()

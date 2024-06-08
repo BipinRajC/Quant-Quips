@@ -9,10 +9,13 @@ column1 , column2  = st.columns(2)
 
 with column1:
     with column1:
-        st.header("A cat")
-        st.image("https://static.streamlit.io/examples/cat.jpg")
+            st.header("another picture")
+            
+           
 
     with column2:
-        st.header("A dog")
-        st.image("https://static.streamlit.io/examples/dog.jpg")
+   
+            st.header("a picture")
+            st.image("assets/infographic.jpeg",width=400)
+            st.link_button(label="Info", url="/Infographics")
 

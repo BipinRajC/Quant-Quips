@@ -6,6 +6,7 @@ import time
 st.set_page_config(page_title="Data Board", page_icon="chart_with_upwards_trend", layout='wide')
 
 # Function to fetch real-time stock data during market hours
+@st.cache_resource
 def fetch_realtime_stock_data(ticker_symbol, period, interval):
     current_time = datetime.now().time()
     
@@ -49,12 +50,14 @@ def plot_chart(stock_data, title, subheader):
     fig.update_yaxes(title_text='Closing Price')
     st.subheader(subheader)
     if overall_market_condition == 'Bullish':
-        fig.update_traces(line_color='light-blue')
+        fig.update_traces(line_color='aqua')
     else:
         fig.update_traces(line_color='red')
-    st.plotly_chart(fig, use_container_width=True, width=1200)
-    st.subheader(f"Latest Data for {title}")
-    st.write(stock_data.tail())  # Display the last rows of the DataFrame
+    with st.container(height=500):
+        st.plotly_chart(fig, use_container_width=True, width=1200)
+    with st.container(height=500):
+        st.subheader(f"Latest Data for {title}")
+        st.write(stock_data.tail())  # Display the last rows of the DataFrame
 
 
 # Display overall market condition and real-time stock charts
@@ -83,11 +86,8 @@ if not ticker_needed:
 @st.cache_resource
 def print_Details(ticker_needed:str):
     ticker_needed = yf.Ticker(ticker_needed)
-    #ticker_needed.info
-
-    # get historical market data
-    
     return ticker_needed
+
 
 if "ticker_cached" not in st.session_state:
     st.session_state["ticker_cached"] = {}
@@ -97,11 +97,42 @@ ticker_list = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA","NVDA"]
 for ticker in ticker_list:
     st.session_state["ticker_cached"].update({ticker:print_Details(ticker)})
 
+
+
+def print_tables(ticker_needed,cont_height:int=500):
+    st.write(ticker_needed.recommendations)
+    col1, col2 = st.columns(2)
+ 
+    with col1:
+        with st.container(height=cont_height):
+            st.subheader("Income Statement")
+            st.write(ticker_needed.income_stmt)
+        with st.container(height=cont_height):
+            st.subheader("Institutional Holders")
+            st.write(ticker_needed.institutional_holders)
+        with st.container(height=cont_height):
+            st.subheader("Quarterly Cash Flow")
+            st.write(ticker_needed.quarterly_cashflow)
+    with col2:
+        with st.container(height=cont_height):
+            st.subheader("Balance Sheet")
+            st.write(ticker_needed.balance_sheet)
+        with st.container(height=cont_height):
+            st.subheader("Mutual Fund Holders")
+            st.write(ticker_needed.mutualfund_holders)
+        with st.container(height=cont_height):
+            st.subheader("Cash Flow Statement")
+            st.write(ticker_needed.cashflow)
+
 if ticker_needed:
     if  st.session_state["ticker_cached"].get(ticker_needed) == None :
             st.session_state["ticker_cached"]|={ticker_needed:print_Details(ticker_needed)}
             with st.spinner("Crunching Numbers"):
                 time.sleep(4)
-            st.session_state["ticker_cached"][ticker_needed].info
+            #st.session_state["ticker_cached"][ticker_needed].info
+            with st.spinner("Preparing view"):
+                print_tables(ticker_needed=st.session_state["ticker_cached"][ticker_needed])
     else:
-        st.session_state["ticker_cached"][ticker_needed].info
+        #st.session_state["ticker_cached"][ticker_needed].info
+        #st.line_chart(data = st.session_state["ticker_cached"][ticker_needed].income_stmt)
+        print_tables(ticker_needed=st.session_state["ticker_cached"][ticker_needed])

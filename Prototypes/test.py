@@ -1,13 +1,12 @@
 import requests
 import re
 import json
-import streamlit as st 
 
 class ChatBot:
     """
     A class to interact with the Phind Instant API to generate chatbot responses.
     """
-    def __init__(self, endpoint: str = "https://https.extension.phind.com/agent/", system_prompt: str = "You are a algotrading helper. Provide insights on the strategies and code given and help to make it accurate", model: str = "Phind Instant"):
+    def __init__(self, endpoint: str = "https://https.extension.phind.com/agent/", system_prompt: str = "You are a algotrading helper. Provide insights on the strategies and code given and help to make it accurate. Given some information understand it and answer.", model: str = "Phind Instant"):
         self.endpoint = endpoint
         self.system_prompt = system_prompt
         self.model = model
@@ -32,8 +31,7 @@ class ChatBot:
             self.model = model
         headers = {"User-Agent": ""}
         # Insert the system prompt at the beginning of the conversation history
-        if(prompt[0] !={"content": self.system_prompt, "role": "system"}):
-            prompt.insert(0, {"content": self.system_prompt, "role": "system"})
+        prompt.insert(0, {"content": self.system_prompt, "role": "system"})
         payload = {
             "additional_extension_context": "",
             "allow_magic_buttons": True,
@@ -108,44 +106,35 @@ class Chain:
             prompt = self.remove_first(prompt)
         return prompt
 
+if __name__ == "__main__":
+    # Test conversation history
+    test_prompts = [
+        {"content": "My name is Sreejan.", "role": "user"},
+        {"content": "Nice to meet you, Sreejan.", "role": "assistant"},
+        {"content": "What is my name?", "role": "user"},
+        {"content": "Your name is Sreejan.", "role": "assistant"},
+        {"content": "What can you do?", "role": "user"},
+        {"content": "I can help with algorithmic trading strategies.", "role": "assistant"},
+        {"content": "Tell me more about algorithmic trading.", "role": "user"},
+        {"content": "Algorithmic trading uses algorithms to make trading decisions.", "role": "assistant"},
+        {"content": "Can you provide an example?", "role": "user"},
+        {"content": "Sure, here's an example of a simple trading algorithm.", "role": "assistant"},
+        {"content": "How can I implement this?", "role": "user"},
+        {"content": "You can implement it using Python and trading libraries.", "role": "assistant"},
+        {"content": "what libraries i can use for this?", "role": "user"}
+    ]
 
+    # Initialize the chatbot and chain with a context window size of 5 for testing
+    chat_bot = ChatBot()
+    response_gen = Chain(chat_bot, context_window_size=5)
 
+    # Run the conversation and manage context window
+    prompt = []
+    for message in test_prompts:
+        prompt = response_gen.add_context(prompt, role=message["role"], context=message["content"])
+        prompt = response_gen.manage_context_window(prompt)
+        print("\nCurrent conversation history (trimmed):", prompt)
 
-# configuring streamlit page settings
-st.set_page_config(
-    page_title="Quant Chat",
-    page_icon="💬",
-    layout="centered"
-)
-
-# initialize chat session in streamlit if not already present
-if "Qchat_history" not in st.session_state:
-    st.session_state.Qchat_history = []
-    st.session_state.Qchatbot = ChatBot()
-    st.session_state.responseChain = Chain(chat_bot = st.session_state.Qchatbot,context_window_size=5)
-    
-
-# streamlit page title
-st.title("🤖 QuantPhindBot")
-
-# display chat history
-for message in st.session_state.Qchat_history:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-        
-# input field for user's message
-user_prompt = st.chat_input("Ask QuantBot...")
-
-if user_prompt:
-    # add user's message to chat and display it
-    st.chat_message("user").markdown(user_prompt)
-    st.session_state.Qchat_history.append({"role": "user", "content": user_prompt})
-
-    # generate response using the generate_response method
-    response = st.session_state.responseChain.chat_bot.generate_response(prompt=st.session_state.Qchat_history,stream=False)
-    
-    st.session_state.Qchat_history.append({"role": "assistant", "content": response})
-
-    # display the response
-    with st.chat_message("assistant"):
-        st.markdown(response)
+    # Generate response for the last prompt to see the context in action
+    api_response = response_gen.chat_bot.generate_response(prompt=prompt, stream=False)
+    print("\n\nFinal Response content:", api_response)

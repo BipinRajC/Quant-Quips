@@ -33,7 +33,7 @@ class ChatBot():
             #print(modified_value)
             if modified_value:
                 json_modified_value = json.loads(modified_value)
-                #print(json_modified_value,"\n")
+                print(json_modified_value,"\n")
                 try:
                     if stream: print(json_modified_value["choices"][0]["delta"]["content"], end="")
                     streaming_text += json_modified_value["choices"][0]["delta"]["content"]
@@ -53,7 +53,7 @@ class Chain(ChatBot):
         print(prompt[1:])
         return prompt[1:]
     
-    def add_context(self, prompt, role ,context):
+    def add_context(self, prompt, role:str ,context):
         prompt.insert(len(prompt), { "content": context,"role": role,})
         print(prompt,"\n")
         return prompt
