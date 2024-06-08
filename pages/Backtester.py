@@ -1,87 +1,158 @@
-import streamlit as st 
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
+import datetime  # For datetime objects
+import os.path  # To manage paths
+import sys  # To find out the script name (in argv[0])
+
+# Import the backtrader platform
 import backtrader as bt
 
 
+# Create a Stratey
+class TestStrategy(bt.Strategy):
+    params = (
+        ('maperiod', 15),
+    )
 
+    def log(self, txt, dt=None):
+        ''' Logging function fot this strategy'''
+        dt = dt or self.datas[0].datetime.date(0)
+        print('%s, %s' % (dt.isoformat(), txt))
 
-import streamlit as st
-from datetime import datetime, timedelta
-import yfinance as yf
-import plotly.express as px
+    def __init__(self):
+        # Keep a reference to the "close" line in the data[0] dataseries
+        self.dataclose = self.datas[0].close
 
-st.set_page_config(page_title="Data Board", page_icon="chart_with_upwards_trend", layout='wide')
+        # To keep track of pending orders and buy price/commission
+        self.order = None
+        self.buyprice = None
+        self.buycomm = None
 
-def fetch_realtime_stock_data(ticker_symbol, period, interval):
-    current_time = datetime.now().time()
-    try:
-        stock_data = yf.download(ticker_symbol, period=period, interval=interval)
-    except Exception as e:
-        if "15m data not available" in str(e):
-            st.warning(f"15-minute data not available for the specified period. Fetching hourly data instead.")
-            stock_data = yf.download(ticker_symbol, period=period, interval="1h")
+        # Add a MovingAverageSimple indicator
+        self.sma = bt.indicators.SimpleMovingAverage(
+            self.datas[0], period=self.params.maperiod)
+
+        # Indicators for the plotting show
+        bt.indicators.ExponentialMovingAverage(self.datas[0], period=25)
+        bt.indicators.WeightedMovingAverage(self.datas[0], period=25,
+                                            subplot=True)
+        bt.indicators.StochasticSlow(self.datas[0])
+        bt.indicators.MACDHisto(self.datas[0])
+        rsi = bt.indicators.RSI(self.datas[0])
+        bt.indicators.SmoothedMovingAverage(rsi, period=10)
+        bt.indicators.ATR(self.datas[0], plot=False)
+
+    def notify_order(self, order):
+        if order.status in [order.Submitted, order.Accepted]:
+            # Buy/Sell order submitted/accepted to/by broker - Nothing to do
+            return
+
+        # Check if an order has been completed
+        # Attention: broker could reject order if not enough cash
+        if order.status in [order.Completed]:
+            if order.isbuy():
+                self.log(
+                    'BUY EXECUTED, Price: %.2f, Cost: %.2f, Comm %.2f' %
+                    (order.executed.price,
+                     order.executed.value,
+                     order.executed.comm))
+
+                self.buyprice = order.executed.price
+                self.buycomm = order.executed.comm
+            else:  # Sell
+                self.log('SELL EXECUTED, Price: %.2f, Cost: %.2f, Comm %.2f' %
+                         (order.executed.price,
+                          order.executed.value,
+                          order.executed.comm))
+
+            self.bar_executed = len(self)
+
+        elif order.status in [order.Canceled, order.Margin, order.Rejected]:
+            self.log('Order Canceled/Margin/Rejected')
+
+        # Write down: no pending order
+        self.order = None
+
+    def notify_trade(self, trade):
+        if not trade.isclosed:
+            return
+
+        self.log('OPERATION PROFIT, GROSS %.2f, NET %.2f' %
+                 (trade.pnl, trade.pnlcomm))
+
+    def next(self):
+        # Simply log the closing price of the series from the reference
+        self.log('Close, %.2f' % self.dataclose[0])
+
+        # Check if an order is pending ... if yes, we cannot send a 2nd one
+        if self.order:
+            return
+
+        # Check if we are in the market
+        if not self.position:
+
+            # Not yet ... we MIGHT BUY if ...
+            if self.dataclose[0] > self.sma[0]:
+
+                # BUY, BUY, BUY!!! (with all possible default parameters)
+                self.log('BUY CREATE, %.2f' % self.dataclose[0])
+
+                # Keep track of the created order to avoid a 2nd order
+                self.order = self.buy()
+
         else:
-            raise
-    return stock_data
 
-default_period = "1d"
-default_interval = "1m"
+            if self.dataclose[0] < self.sma[0]:
+                # SELL, SELL, SELL!!! (with all possible default parameters)
+                self.log('SELL CREATE, %.2f' % self.dataclose[0])
 
-nse_ticker_symbol = "^NSEI"
-sensex_ticker_symbol = "^BSESN"
+                # Keep track of the created order to avoid a 2nd order
+                self.order = self.sell()
 
-def calculate_percentage_change(stock_data):
-    return (stock_data['Close'].iloc[-1] - stock_data['Close'].iloc[0]) / stock_data['Close'].iloc[0] * 100
 
-nse_stock_data = fetch_realtime_stock_data(nse_ticker_symbol, default_period, default_interval)
-sensex_stock_data = fetch_realtime_stock_data(sensex_ticker_symbol, default_period, default_interval)
+if __name__ == '__main__':
+    # Create a cerebro entity
+    cerebro = bt.Cerebro()
 
-nse_percentage_change = calculate_percentage_change(nse_stock_data)
-sensex_percentage_change = calculate_percentage_change(sensex_stock_data)
+    # Add a strategy
+    cerebro.addstrategy(TestStrategy)
 
-overall_market_condition = 'Bullish' if nse_percentage_change > 0 and sensex_percentage_change > 0 else 'Bearish'
+    # Datas are in a subfolder of the samples. Need to find where the script is
+    # because it could have been called from anywhere
 
-def plot_chart(stock_data, title, subheader):
-    fig = px.line(stock_data, x=stock_data.index, y="Close", title=title)
-    fig.update_xaxes(title_text='Time')
-    fig.update_yaxes(title_text='Closing Price')
-    st.subheader(subheader)
-    if overall_market_condition == 'Bullish':
-        fig.update_traces(line_color='light-blue')
-    else:
-        fig.update_traces(line_color='red')
-    st.plotly_chart(fig, use_container_width=True, width=1200)
-    st.subheader(f"Latest Data for {title}")
-    st.write(stock_data.tail())
+    datapath = "../data/scrapedData/US/NVDA.csv"
 
-st.subheader(f"Overall Market Condition: {overall_market_condition}")
+    # Create a Data Feed
+    data = bt.feeds.YahooFinanceCSVData(
+        dataname=datapath,
+        # Do not pass values before this date
+        fromdate=datetime.datetime(2020, 1, 1),
+        # Do not pass values before this date
+        todate=datetime.datetime(2023, 12, 31),
+        # Do not pass values after this date
+        reverse=False)
 
-if nse_stock_data is not None and sensex_stock_data is not None:
-    col1, col2 = st.columns(2)
+    # Add the Data Feed to Cerebro
+    cerebro.adddata(data)
 
-    with col1:
-        plot_chart(nse_stock_data, "Real-time Nifty Chart", "Real-time Nifty Chart:")
+    # Set our desired cash start
+    cerebro.broker.setcash(10000.0)
 
-    with col2:
-        plot_chart(sensex_stock_data, "Real-time Sensex Chart", "Real-time Sensex Chart:")
-else:
-    st.warning("Nifty or Sensex market is closed. Real-time data is available only during market hours.")
+    # Add a FixedSize sizer according to the stake
+    cerebro.addsizer(bt.sizers.FixedSize, stake=10)
 
-st.write("Auto-refreshing every 1 minute.")
+    # Set the commission
+    cerebro.broker.setcommission(commission=0.0)
 
-ticker_needed = st.selectbox("Select a stock ticker", ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA","NVDA"], index=None)
+    # Print out the starting conditions
+    print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
 
-if not ticker_needed:
-    with st.spinner("Enter a stock ticker to fetch data"):
-        ticker_needed = st.text_input("Enter a stock ticker")
-        
+    # Run over everything
+    cerebro.run()
 
-try:
-    ticker_needed = yf.Ticker(ticker_needed)
-    ticker_info = ticker_needed.info
-    hist = ticker_needed.history(period="1y")
-    st.write("Meta Information:", ticker_info)
-    st.write("Historical Data:", hist)
-except Exception as e:
-    st.error(f"Failed to fetch data for {ticker_needed}. Error: {e}")
+    # Print out the final result
+    print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
 
-st.write("Financial Statements and Holder Information can be accessed via the Ticker object methods.")
+    # Plot the result
+    cerebro.plot()
