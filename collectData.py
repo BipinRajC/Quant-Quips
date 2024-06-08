@@ -5,11 +5,11 @@ import sys
 import os
 import pandas as pd
 
-class dataScraper():
-    def __init__():
+class dataScraper:
+    def __init__(self):
         return
     
-    def download_data(companyName:str, countryName:str,startDate:str = "2000-01-01",endDate:str = "2024-12-31") -> str:
+    def download_data(self,companyName:str, countryName:str,startDate:str = "2000-01-01",endDate:str = "2024-12-31") -> str:
         stock = yf.Ticker(companyName)
         data = stock.history(start = startDate, end = endDate)
         
@@ -21,7 +21,7 @@ class dataScraper():
         return f"Downloaded data for {companyName}" 
         
         
-    def bulk_download_data(countryName:str = None,tickerListPath:str = None,requiredNumber:int = None,startDate:str = "2000-01-01",endDate:str = "2024-12-31") -> str:
+    def bulk_download_data(self,countryName:str = None,tickerListPath:str = None,requiredNumber:int = None,startDate:str = "2000-01-01",endDate:str = "2024-12-31") -> str:
         if(countryName == None):
             return f"Please give country code\n"
         elif(tickerListPath == None):
