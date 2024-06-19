@@ -80,6 +80,10 @@ def initialize_session():
         st.session_state['data'] = None
     if 'results' not in st.session_state:
         st.session_state['results'] = []
+    if 'new_strategy_code' not in st.session_state:
+        st.session_state['new_strategy_code'] = ""
+    if 'strategies_to_run' not in st.session_state:
+        st.session_state['strategies_to_run'] = [strat.__name__ for strat in st.session_state['strategies']]
 
 initialize_session()
 
@@ -106,7 +110,7 @@ st.title('Backtester')
 st.write('Upload a CSV file with historical data or type a ticker symbol to backtest the strategies.')
 st.write('The CSV file should have the following columns: Date, Open, High, Low, Close, Volume')
 
-st.session_state['ticker'] = st.text_input('Ticker Symbol')
+st.session_state['ticker'] = st.text_input('Ticker Symbol', st.session_state.get('ticker', ''))
 st.session_state['start_date'] = st.date_input('Start Date', pd.to_datetime('2021-01-01'))
 st.session_state['end_date'] = st.date_input('End Date', pd.to_datetime('2021-12-31'))
 
@@ -115,28 +119,47 @@ uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 initial_cash = st.number_input('Initial Cash', value=10000)
 commission = st.number_input('Broker Commission', value=0.001)
 
-strategies_to_run = st.multiselect('Select Strategies to Run', [strat.__name__ for strat in st.session_state['strategies']], default=[strat.__name__ for strat in st.session_state['strategies']])
+strategies_to_run = st.multiselect('Select Strategies to Run', [strat.__name__ for strat in st.session_state['strategies']], default=st.session_state['strategies_to_run'])
+
+st.session_state['new_strategy_code'] = st.text_area("Paste your strategy class code here", st.session_state['new_strategy_code'], height=300)
 
 if st.button("Upload Strategy"):
-    uploaded_code = st.text_area("Paste your strategy class code here")
-    exec(uploaded_code, globals())
-    uploaded_strategy_class_name = inspect.getmembers(globals(), inspect.isclass)[-1][0]
-    st.session_state['strategies'].append(globals()[uploaded_strategy_class_name])
-    st.success(f"Uploaded strategy: {uploaded_strategy_class_name}")
+    try:
+        exec(st.session_state['new_strategy_code'], globals())
+        # Find the newly uploaded class by finding the last class defined
+        new_classes = [cls for cls in globals().values() if inspect.isclass(cls) and issubclass(cls, bt.Strategy) and cls.__module__ == '__main__']
+        if not new_classes:
+            st.warning("Please paste a valid Backtrader strategy class for testing.")
+        else:
+            new_strategy_class = new_classes[-1]
+            if new_strategy_class not in st.session_state['strategies']:
+                st.session_state['strategies'].append(new_strategy_class)
+                st.session_state['strategies_to_run'].append(new_strategy_class.__name__)
+                st.success(f"Uploaded strategy: {new_strategy_class.__name__}")
+            else:
+                st.warning("This strategy is already uploaded.")
+    except Exception as e:
+        st.warning(f"An error occurred: {e}")
 
 if st.button("Run Backtest"):
-    if uploaded_file:
-        st.session_state['data'] = pd.read_csv(uploaded_file, index_col='Date', parse_dates=True)
+    if not uploaded_file and not st.session_state['ticker']:
+        st.warning("Please provide a ticker symbol or upload a CSV file with historical data.")
     else:
-        st.session_state['data'] = yf.download(st.session_state['ticker'], start=st.session_state['start_date'], end=st.session_state['end_date'])
+        if uploaded_file:
+            st.session_state['data'] = pd.read_csv(uploaded_file, index_col='Date', parse_dates=True)
+        else:
+            st.session_state['data'] = yf.download(st.session_state['ticker'], start=st.session_state['start_date'], end=st.session_state['end_date'])
 
-    data_feed = bt.feeds.PandasData(dataname=st.session_state['data'])
+        if st.session_state['data'] is not None and not st.session_state['data'].empty:
+            data_feed = bt.feeds.PandasData(dataname=st.session_state['data'])
 
-    st.session_state['results'] = []
-    for strategy_name in strategies_to_run:
-        strategy_class = next(strat for strat in st.session_state['strategies'] if strat.__name__ == strategy_name)
-        result = run_strategy(strategy_class, data_feed, initial_cash, commission)
-        st.session_state['results'].append(result)
+            st.session_state['results'] = []
+            for strategy_name in strategies_to_run:
+                strategy_class = next(strat for strat in st.session_state['strategies'] if strat.__name__ == strategy_name)
+                result = run_strategy(strategy_class, data_feed, initial_cash, commission)
+                st.session_state['results'].append(result)
 
-    results_df = pd.DataFrame(st.session_state['results'])
-    st.write(results_df)
+            results_df = pd.DataFrame(st.session_state['results'])
+            st.write(results_df)
+        else:
+            st.warning("No data available to run the backtest.")
