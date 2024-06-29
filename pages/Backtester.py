@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('agg')
 import streamlit as st
 import pandas as pd
 import backtrader as bt
@@ -5,7 +7,7 @@ import yfinance as yf
 import inspect
 
 # Strategies
-
+st.set_page_config(page_title="Backtester", page_icon="chart_with_upwards_trend", layout='wide')
 class MovingAverageCrossover(bt.Strategy):
     params = (
         ('short_period', 10),
@@ -96,14 +98,15 @@ def run_strategy(strategy, data_feed, initial_cash, commission):
     
     starting_value = cerebro.broker.getvalue()
     cerebro.run()
-    cerebro.plot(dpi = 800)
+    figure = cerebro.plot(dpi=1000)[0][0]
     ending_value = cerebro.broker.getvalue()
 
     return {
         'Strategy': strategy.__name__,
         'Starting Value': starting_value,
         'Ending Value': ending_value
-    }
+    }, {'figure':figure,
+        'name':strategy.__name__}
 
 st.title('Backtester')
 
@@ -154,12 +157,26 @@ if st.button("Run Backtest"):
             data_feed = bt.feeds.PandasData(dataname=st.session_state['data'])
 
             st.session_state['results'] = []
+            st.session_state['fig'] = []
             for strategy_name in strategies_to_run:
                 strategy_class = next(strat for strat in st.session_state['strategies'] if strat.__name__ == strategy_name)
-                result = run_strategy(strategy_class, data_feed, initial_cash, commission)
+                result, figure = run_strategy(strategy_class, data_feed, initial_cash, commission)
                 st.session_state['results'].append(result)
+                st.session_state['fig'].append(figure)
 
             results_df = pd.DataFrame(st.session_state['results'])
-            st.write(results_df)
+            
+            st.table(results_df)
+            col1,col2 = st.columns(2)
+            with col1:
+                for i in range(0,2):
+                    with st.container(height=500):
+                        st.subheader(st.session_state['fig'][i]['name'])
+                        st.pyplot(st.session_state['fig'][i]['figure'])
+            with col2:
+                for i in range(2,4):
+                    with st.container(height=500):
+                        st.subheader(st.session_state['fig'][i]['name'])
+                        st.pyplot(st.session_state['fig'][i]['figure'])
         else:
             st.warning("No data available to run the backtest.")
