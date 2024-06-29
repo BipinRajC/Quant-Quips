@@ -10,8 +10,12 @@ COPY requirements.txt .
 # Install the required Python packages
 RUN pip install --no-cache-dir -r requirements.txt
 
+
+# update and install tkinter
+RUN apt update -y
+RUN apt install python3-tk -y
 # Copy the rest of the application code to the working directory
-COPY . ./application
+COPY . /app
 
 # Expose the port on which the Streamlit app will run
 EXPOSE 8501
