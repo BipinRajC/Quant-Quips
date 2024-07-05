@@ -12,7 +12,7 @@ GROQ_API_KEY = config_data["GROQ_API_KEY"]
 
 # configuring streamlit page settings
 st.set_page_config(
-    page_title="GPT-4o Chat",
+    page_title="llama3-70b Chat",
     page_icon="💬",
     layout="centered"
 )
@@ -40,7 +40,7 @@ if user_prompt:
 
     # send user's message to GPT-4o and get a response
     response = client.chat.completions.create(
-        model="llama3-8b-8192",
+        model="llama3-70b-8192",
         messages=[
             {"role": "system", "content": "You are a algotrading helper named QuantBot. Provide insights on the strategies and code given and help to make it accurate"},
             *st.session_state.chat_history
