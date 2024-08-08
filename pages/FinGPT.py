@@ -2,22 +2,21 @@ import os
 import json
 
 import streamlit as st
-import openai
+import groq
 
 # configuring openai - api key
 working_dir = os.path.dirname(os.path.abspath(__file__))
 config_data = json.load(open(f"{working_dir}/config.json"))
 #print(config_data)
-OPENAI_API_KEY = config_data["OPENAI_API_KEY"]
-openai.api_key = OPENAI_API_KEY
+GROQ_API_KEY = config_data["GROQ_API_KEY"]
 
 # configuring streamlit page settings
 st.set_page_config(
-    page_title="GPT-4o Chat",
+    page_title="llama3-70b Chat",
     page_icon="💬",
     layout="centered"
 )
-
+client  = groq.Groq(api_key=GROQ_API_KEY)
 # initialize chat session in streamlit if not already present
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
@@ -40,8 +39,8 @@ if user_prompt:
     st.session_state.chat_history.append({"role": "user", "content": user_prompt})
 
     # send user's message to GPT-4o and get a response
-    response = openai.chat.completions.create(
-        model="gpt-4o",
+    response = client.chat.completions.create(
+        model="llama-3.1-70b-versatile",
         messages=[
             {"role": "system", "content": "You are a algotrading helper named QuantBot. Provide insights on the strategies and code given and help to make it accurate"},
             *st.session_state.chat_history
@@ -56,4 +55,3 @@ if user_prompt:
     # display GPT-4o's response
     with st.chat_message("assistant"):
         st.markdown(assistant_response)
-    
