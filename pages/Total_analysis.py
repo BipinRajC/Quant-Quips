@@ -2,7 +2,6 @@ import streamlit as st
 import json
 import os
 from newsapi import NewsApiClient
-import yfinance as yf
 import groq
 
 # Streamlit page configuration
@@ -26,7 +25,7 @@ def get_groq_response(question, context):
     if context is None:
         context = []
     response = client.chat.completions.create(
-        model="llama3-70b-8192",
+        model="llama-3.1-70b-versatile",
         messages=[
             {"role": "system", "content": "You are a financial advisor."},
             {"role": "user", "content": {"Question": question, "Context": context}}
@@ -34,8 +33,7 @@ def get_groq_response(question, context):
     )
     return response.choices[0].message.content.strip()
 
-def fetch_latest_headlines(ticker):
-    query = ticker
+def fetch_latest_headlines(query):
     all_articles = newsapi.get_everything(q=query, language='en', sort_by='publishedAt')
     return all_articles['articles'][:5]
 
@@ -81,24 +79,38 @@ def summarize_context(context):
 # Streamlit UI elements
 st.title("QuantQuips - Financial Insights")
 
-# Dropdown for stock tickers
-ticker = st.selectbox("Select a Stock Ticker:", ["AAPL", "GOOGL", "AMZN", "MSFT", "TSLA"])
+# Text input for the news topic
+news_topic = st.text_input("Enter a topic to get the latest financial news:")
+
+if 'articles' not in st.session_state:
+    st.session_state.articles = []
+
+if 'analysis' not in st.session_state:
+    st.session_state.analysis = ""
+
+if 'summary' not in st.session_state:
+    st.session_state.summary = ""
 
 if st.button("Fetch News & Analyze"):
-    if ticker:
-        st.subheader(f"Latest News for {ticker}")
-        articles = fetch_latest_headlines(ticker)
-        display_news_headlines(articles)
+    if news_topic:
+        st.session_state.articles = fetch_latest_headlines(news_topic)
+        st.subheader(f"Latest News for {news_topic}")
+        display_news_headlines(st.session_state.articles)
         
-        if st.button("Analyze Latest Headlines"):
-            combined_text = " ".join([article['description'] for article in articles if article['description']])
-            analysis = qualitative_analysis("Provide a qualitative analysis.", combined_text)
-            st.subheader("Analysis of the News Headlines")
-            st.write(analysis)
-        
-        if st.button("Summarize Latest Headlines"):
-            combined_text = " ".join([article['description'] for article in articles if article['description']])
-            summary = summarize_context(combined_text)
-            st.subheader("Summary of the News Headlines")
-            st.write(summary)
+if st.button("Analyze Latest Headlines"):
+    if st.session_state.articles:
+        combined_text = " ".join([article['description'] for article in st.session_state.articles if article['description']])
+        st.session_state.analysis = qualitative_analysis("Provide a qualitative analysis.", combined_text)
+        st.subheader("Analysis of the News Headlines")
+        st.write(st.session_state.analysis)
+    else:
+        st.warning("Please fetch the latest news first.")
 
+if st.button("Summarize Latest Headlines"):
+    if st.session_state.articles:
+        combined_text = " ".join([article['description'] for article in st.session_state.articles if article['description']])
+        st.session_state.summary = summarize_context(combined_text)
+        st.subheader("Summary of the News Headlines")
+        st.write(st.session_state.summary)
+    else:
+        st.warning("Please fetch the latest news first.")
