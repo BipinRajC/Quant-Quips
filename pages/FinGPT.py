@@ -40,7 +40,7 @@ if user_prompt:
 
     # send user's message to GPT-4o and get a response
     response = client.chat.completions.create(
-        model="llama3-70b-8192",
+        model="llama-3.1-70b-versatile",
         messages=[
             {"role": "system", "content": "You are a algotrading helper named QuantBot. Provide insights on the strategies and code given and help to make it accurate"},
             *st.session_state.chat_history
