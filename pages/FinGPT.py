@@ -4,11 +4,8 @@ import json
 import streamlit as st
 import groq
 
-# configuring openai - api key
-working_dir = os.path.dirname(os.path.abspath(__file__))
-config_data = json.load(open(f"{working_dir}/config.json"))
-#print(config_data)
-GROQ_API_KEY = config_data["GROQ_API_KEY"]
+# fetch GROQ_API_KEY from streamlit secrets
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
 # configuring streamlit page settings
 st.set_page_config(

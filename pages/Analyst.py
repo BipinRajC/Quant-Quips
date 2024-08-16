@@ -9,10 +9,8 @@ from groq import Groq
 # Set page config
 st.set_page_config(page_title="QuantQuips", page_icon="chart_with_upwards_trend", layout='wide')
 
-# Load config
-working_dir = os.path.dirname(os.path.abspath(__file__))
-config_data = json.load(open(f"{working_dir}/config.json"))
-GROQ_API_KEY = config_data["GROQ_API_KEY"]
+# Load config from secrets.toml
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
 # Initialize Groq client
 client = Groq(api_key=GROQ_API_KEY)

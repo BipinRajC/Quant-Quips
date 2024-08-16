@@ -86,7 +86,7 @@ _CAPM model analysis for risk calculation_
 _Personalised LLM model for Code generation and analysis_
 
 ![Screenshot 1](images/10.png)
-_Financial planner to achieve goals based on realistic calcualtions from Natural langauge input_
+_Financial planner to achieve financial goals based on realisitc calculations and Natural language processing_
 
 ![Screenshot 1](images/11.png)
 _Financial news fetching and analysis using generative AI_

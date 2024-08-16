@@ -11,14 +11,8 @@ import json
 # Streamlit page configuration
 st.set_page_config(page_title="CAPM", page_icon="chart_with_upwards_trend", layout='wide')
 
-# Load API keys from config.json
-working_dir = os.path.dirname(os.path.abspath(__file__))
-config_file_path = os.path.join(working_dir, "config.json")
-
-with open(config_file_path, 'r') as config_file:
-    config_data = json.load(config_file)
-
-GROQ_API_KEY = config_data["GROQ_API_KEY"]
+# Load API keys from secrets.toml
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
 # Initialize Groq client
 client = groq.Groq(api_key=GROQ_API_KEY)

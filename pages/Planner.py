@@ -8,9 +8,7 @@ from groq import Groq
 st.set_page_config(page_title="Smart Financial Planner", page_icon="💰", layout="wide")
 
 # Load configuration data for Groq API key
-working_dir = os.path.dirname(os.path.abspath(__file__))
-config_data = json.load(open(f"{working_dir}/config.json"))
-GROQ_API_KEY = config_data["GROQ_API_KEY"]
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
 # Initialize Groq client
 client = Groq(api_key=GROQ_API_KEY)

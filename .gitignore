@@ -163,3 +163,4 @@ cython_debug/
 
 # My files
 /pages/*json
+.streamlit
