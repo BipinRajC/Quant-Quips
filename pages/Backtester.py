@@ -1,5 +1,7 @@
 import matplotlib
-matplotlib.use('agg')
+import matplotlib.pyplot as plt
+# disable to use gui
+matplotlib.use('Agg')
 import streamlit as st
 import pandas as pd
 import backtrader as bt
