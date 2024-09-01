@@ -1,0 +1,622 @@
+{
+  "id": "ceb062d8-1230-432f-a69b-1933ea3ebc35",
+  "version": "2.0",
+  "name": "quantquipstest",
+  "url": "https://quantquips.streamlit.app",
+  "tests": [{
+    "id": "0719927a-af62-4093-ad7d-dfcb2c7dda04",
+    "name": "Home",
+    "commands": [{
+      "id": "ddb97274-9b6f-4cba-b2eb-416a5c599389",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ee832ae8-5b9c-4e87-a533-0f15fb9e0e44",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "976x693",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7795d9e3-a2be-45c1-93c2-8c7cd74c5682",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "67aa1cbb-b92d-4f90-8bd4-02aebb6f5e71",
+      "comment": "",
+      "command": "click",
+      "target": "css=.st-emotion-cache-ch5dnh > .eyeqlp51",
+      "targets": [
+        ["css=.st-emotion-cache-ch5dnh > .eyeqlp51", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "0da22ec9-354e-4df3-9db2-defb4d3da69c",
+      "comment": "",
+      "command": "click",
+      "target": "id=text_input_1",
+      "targets": [
+        ["id=text_input_1", "id"],
+        ["css=#text_input_1", "css:finder"],
+        ["xpath=//input[@id='text_input_1']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[8]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "354e956c-af2c-42ef-8b7f-d104327703d5",
+      "comment": "",
+      "command": "type",
+      "target": "id=text_input_1",
+      "targets": [
+        ["id=text_input_1", "id"],
+        ["css=#text_input_1", "css:finder"],
+        ["xpath=//input[@id='text_input_1']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[8]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/div/input", "xpath:position"]
+      ],
+      "value": "WIPRO.NS"
+    }, {
+      "id": "e1b223df-b679-421c-aa70-29a8070762ef",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=text_input_1",
+      "targets": [
+        ["id=text_input_1", "id"],
+        ["css=#text_input_1", "css:finder"],
+        ["xpath=//input[@id='text_input_1']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[8]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[8]/div/div/div/input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }]
+  }, {
+    "id": "c4bc77c2-3451-482a-8fa1-7b8cc75c9140",
+    "name": "Quantbot",
+    "commands": [{
+      "id": "2635472d-84d2-4bd6-aa30-903504e81a58",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2867d37f-bc0f-4342-b704-32a0e98e7285",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "976x693",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3b98cd81-617e-456a-b4f8-a29f39b77c8d",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "2df47dcf-d0ab-496c-b65e-5a6cc81f0b4f",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(5) .st-emotion-cache-1m6wrpk",
+      "targets": [
+        ["css=li:nth-child(5) .st-emotion-cache-1m6wrpk", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section/div/div[2]/ul/li[5]/div/a/span", "xpath:idRelative"],
+        ["xpath=//li[5]/div/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'FinGPT')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f5c9dcd7-8688-4dfe-9e74-b6057971cfd3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.st-emotion-cache-ch5dnh > .eyeqlp51",
+      "targets": [
+        ["css=.st-emotion-cache-ch5dnh > .eyeqlp51", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "febe83b1-9b47-4c7a-b09f-8364122a852e",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div[3]/div/div/div/div/div/div/div/div/div/div/textarea",
+      "targets": [
+        ["css=.st-cs", "css:finder"],
+        ["xpath=//textarea[@name='']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div[3]/div/div/div/div/div/div/div/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9ccc4b4a-dea8-43cb-93d3-4968ddb3bce0",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div[3]/div/div/div/div/div/div/div/div/div/div/textarea",
+      "targets": [
+        ["css=.st-cs", "css:finder"],
+        ["xpath=//textarea[@name='']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div[3]/div/div/div/div/div/div/div/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "What are your capabilities"
+    }, {
+      "id": "62fedc5b-4e06-49d6-ac84-02f0e7dbdbea",
+      "comment": "",
+      "command": "click",
+      "target": "css=.st-emotion-cache-1wi2cd3 > .eyeqlp51",
+      "targets": [
+        ["css=.st-emotion-cache-1wi2cd3 > .eyeqlp51", "css:finder"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "315e9bfb-2a54-4d9c-b372-8a5c63b7281b",
+    "name": "News",
+    "commands": [{
+      "id": "8c4af21e-44cf-479b-9be7-6971f99386e7",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f01aad2-b215-4683-a9c2-861e9dfaf924",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "976x693",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9c02face-45b5-4936-af82-60366564487e",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "c78a45fe-5821-4691-bf44-0620287f21de",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(7) .st-emotion-cache-1m6wrpk",
+      "targets": [
+        ["css=li:nth-child(7) .st-emotion-cache-1m6wrpk", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section/div/div[2]/ul/li[7]/div/a/span", "xpath:idRelative"],
+        ["xpath=//li[7]/div/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Total analysis')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1cf7c1c6-3d57-4fb1-89ab-05fd0d4faf4b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.st-emotion-cache-ch5dnh",
+      "targets": [
+        ["css=.st-emotion-cache-ch5dnh", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section/div/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5729e6e8-1da5-4d9e-8b3a-6c2f21e90147",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[2]/div/div/div/input",
+      "targets": [
+        ["id=text_input_1", "id"],
+        ["css=#text_input_1", "css:finder"],
+        ["xpath=//input[@id='text_input_1']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "73f8d1f7-ba3b-4564-b829-565b15ce5f14",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[2]/div/div/div/input",
+      "targets": [
+        ["id=text_input_2", "id"],
+        ["css=#text_input_2", "css:finder"],
+        ["xpath=//input[@id='text_input_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "google cloud"
+    }, {
+      "id": "5e7741da-4e72-4c89-80f8-b31297bb137d",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[2]/div/div/div/input",
+      "targets": [
+        ["id=text_input_2", "id"],
+        ["css=#text_input_2", "css:finder"],
+        ["xpath=//input[@id='text_input_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "a088ea31-8c6a-4bcf-b8cb-6a9c2203c7a9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.element-container:nth-child(3) p",
+      "targets": [
+        ["css=.element-container:nth-child(3) p", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[3]/div/button/div/p", "xpath:idRelative"],
+        ["xpath=//button/div/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Fetch News & Analyze')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dc83d5b3-a46b-4121-a0f1-ec371a0eba76",
+      "comment": "",
+      "command": "click",
+      "target": "css=.element-container:nth-child(25) p",
+      "targets": [
+        ["css=.element-container:nth-child(25) p", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[25]/div/button/div/p", "xpath:idRelative"],
+        ["xpath=//div[25]/div/button/div/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Analyze Latest Headlines')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3c463c4a-0856-4f37-9d51-d911ed9fc198",
+      "comment": "",
+      "command": "click",
+      "target": "css=.element-container:nth-child(7) .st-emotion-cache-19rxjzo",
+      "targets": [
+        ["css=.element-container:nth-child(7) .st-emotion-cache-19rxjzo", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[7]/div/button", "xpath:idRelative"],
+        ["xpath=//div[7]/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Summarize Latest Headlines')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "3c705c20-e5cb-44db-b44d-978c230a3448",
+    "name": "Backtester",
+    "commands": [{
+      "id": "f5b640e1-ef92-49a7-b270-207dc4062290",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "64bc0031-94c9-425b-9695-64c1479259a0",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "976x693",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ad194fcf-f3dc-4c7b-a266-561a9e3296d4",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "e6c2dd06-fe16-4fe4-a8a7-c0a701c133a9",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(3) .st-emotion-cache-1m6wrpk",
+      "targets": [
+        ["css=li:nth-child(3) .st-emotion-cache-1m6wrpk", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section/div/div[2]/ul/li[3]/div/a/span", "xpath:idRelative"],
+        ["xpath=//li[3]/div/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Backtester')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "085f21fd-a1e0-4882-9595-9006152fde68",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[4]/div/div/div/input",
+      "targets": [
+        ["id=text_input_2", "id"],
+        ["css=#text_input_2", "css:finder"],
+        ["xpath=//input[@id='text_input_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[4]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d8c2ae38-8de9-40d4-87a7-4011c1729728",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[4]/div/div/div/input",
+      "targets": [
+        ["id=text_input_2", "id"],
+        ["css=#text_input_2", "css:finder"],
+        ["xpath=//input[@id='text_input_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[4]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "AAPL"
+    }, {
+      "id": "807245f4-26e5-4670-acc4-c3c6fbc8cbb9",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[4]/div/div/div/input",
+      "targets": [
+        ["id=text_input_2", "id"],
+        ["css=#text_input_2", "css:finder"],
+        ["xpath=//input[@id='text_input_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[4]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "c3eaadcf-3560-4642-9c8e-99960aaaaa7c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[11]/div/div/div/div/textarea",
+      "targets": [
+        ["id=text_area_5", "id"],
+        ["css=#text_area_5", "css:finder"],
+        ["xpath=//textarea[@id='text_area_5']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[11]/div/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "933c9667-a435-46b3-9c64-2557f9d82bce",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[11]/div/div/div/div/textarea",
+      "targets": [
+        ["id=text_area_5", "id"],
+        ["css=#text_area_5", "css:finder"],
+        ["xpath=//textarea[@id='text_area_5']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[11]/div/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "class MomentumStrategy(bt.Strategy):\\n    params = (\\n        ('momentum_period', 14),\\n    )\\n\\n    def __init__(self):\\n        self.momentum = bt.indicators.Momentum(self.data.close, period=self.params.momentum_period)\\n\\n    def next(self):\\n        if self.momentum > 0:\\n            self.buy()\\n        elif self.momentum < 0:\\n            self.sell()"
+    }, {
+      "id": "6c110dad-3afd-4c62-82ce-d5f0f6aed340",
+      "comment": "",
+      "command": "click",
+      "target": "css=.element-container:nth-child(12) p",
+      "targets": [
+        ["css=.element-container:nth-child(12) p", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[12]/div/button/div/p", "xpath:idRelative"],
+        ["xpath=//button/div/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Upload Strategy')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c770ae35-b9ce-46fd-b291-9ccbc24f09c4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.element-container:nth-child(14) p",
+      "targets": [
+        ["css=.element-container:nth-child(14) p", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[14]/div/button/div/p", "xpath:idRelative"],
+        ["xpath=//div[14]/div/button/div/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Run Backtest')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "44578370-b2f8-46e2-a7d0-9a8b08d4d082",
+    "name": "Planner",
+    "commands": [{
+      "id": "d968e386-dab9-4e92-b96e-028c602c07e8",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f6594e6-76ec-4eb5-b336-61b29b4aa063",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "976x693",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8c15df63-8397-40da-857c-565d5f52b4bb",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "b745b2e3-0b19-4ca8-8fe5-23fc10af43a8",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Planner",
+      "targets": [
+        ["linkText=Planner", "linkText"],
+        ["css=li:nth-child(6) .st-emotion-cache-1we6k59", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section/div/div[2]/ul/li[6]/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://quantquips.streamlit.app/~/+/Planner')]", "xpath:href"],
+        ["xpath=//li[6]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Planner')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a9f2c256-69e9-4b27-adab-c3d5c859c7cd",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[3]/div/div/div/div/textarea",
+      "targets": [
+        ["id=text_area_2", "id"],
+        ["css=#text_area_2", "css:finder"],
+        ["xpath=//textarea[@id='text_area_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[3]/div/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ed37f4e0-22b8-41bc-bef1-41e500f3aaaa",
+      "comment": "",
+      "command": "type",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[3]/div/div/div/div/textarea",
+      "targets": [
+        ["id=text_area_2", "id"],
+        ["css=#text_area_2", "css:finder"],
+        ["xpath=//textarea[@id='text_area_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[3]/div/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Want to purchase a car of 10000 INR.\\n"
+    }, {
+      "id": "5747e28c-8df8-4be2-a4ff-a1bed723746b",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[3]/div/div/div/div/textarea",
+      "targets": [
+        ["id=text_area_2", "id"],
+        ["css=#text_area_2", "css:finder"],
+        ["xpath=//textarea[@id='text_area_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[3]/div/div/div/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ddd1848b-4da4-4fdb-8e0e-b5d02c270cc1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.st-emotion-cache-4d1onx > p",
+      "targets": [
+        ["css=.st-emotion-cache-4d1onx > p", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[7]/div/button/div/p", "xpath:idRelative"],
+        ["xpath=//button/div/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Get Financial Plan')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "88dbbeb6-def5-4ba5-b59a-24b310f40de1",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.st-emotion-cache-19rxjzo",
+      "targets": [
+        ["css=.st-emotion-cache-19rxjzo", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[7]/div/button", "xpath:idRelative"],
+        ["xpath=//div[7]/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Get Financial Plan')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "bb1f7113-cc3d-49ef-b839-cc72d5f78dab",
+    "name": "Analyst",
+    "commands": [{
+      "id": "d1b9114d-c3ba-4aff-b7b1-3fc9f5485af5",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2756502f-0c38-4e13-9434-4f35c151772b",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "976x693",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5820a120-c1b0-41fa-a88c-fe9d096181e1",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "2d7c6cba-8e73-48e5-9002-bacf44bed0b5",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Analyst",
+      "targets": [
+        ["linkText=Analyst", "linkText"],
+        ["css=li:nth-child(2) .st-emotion-cache-1we6k59", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section/div/div[2]/ul/li[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://quantquips.streamlit.app/~/+/Analyst')]", "xpath:href"],
+        ["xpath=//li[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Analyst')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7d64547e-4f8a-4268-b309-2d06495b6501",
+      "comment": "",
+      "command": "click",
+      "target": "id=text_input_1",
+      "targets": [
+        ["id=text_input_2", "id"],
+        ["css=#text_input_2", "css:finder"],
+        ["xpath=//input[@id='text_input_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[3]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6d80a9cc-7f4c-4a55-a710-2aeb4efa4480",
+      "comment": "",
+      "command": "type",
+      "target": "id=text_input_1",
+      "targets": [
+        ["id=text_input_2", "id"],
+        ["css=#text_input_2", "css:finder"],
+        ["xpath=//input[@id='text_input_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[3]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "AAPL"
+    }, {
+      "id": "bd128465-cf62-4b85-8dc2-ef54b5136b72",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=text_input_1",
+      "targets": [
+        ["id=text_input_2", "id"],
+        ["css=#text_input_2", "css:finder"],
+        ["xpath=//input[@id='text_input_2']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[3]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "13f367c9-7f26-4296-9fd4-1784ca17c382",
+      "comment": "",
+      "command": "click",
+      "target": "css=.st-emotion-cache-4d1onx > p",
+      "targets": [
+        ["css=.st-emotion-cache-4d1onx > p", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div/section[2]/div/div/div/div/div[4]/div/button/div/p", "xpath:idRelative"],
+        ["xpath=//button/div/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Get Advice')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "51e47ea1-2376-447e-8faf-428e2a77c86d",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["https://quantquips.streamlit.app/"],
+  "plugins": []
+}
