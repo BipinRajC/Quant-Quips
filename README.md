@@ -1,8 +1,6 @@
-## QuantQuips
+## Quant-Quips: Streamlining Financial Data Analysis
 
-<span style="color: lightblue;">Quantquips, a cutting-edge backtesting platform seamlessly crafted with Streamlit and powered by Python. Elevate your trading strategies with precision on our dynamic backtesting page, unleash the power of genetic algorithms to discover optimal parameters, and let our sophisticated LLM guide you through the intricate realm of algorithmic trading. Elevate your trading experience with Quantquips - where innovation meets precision.</span>
-
-> This was developed from scratch by our team, QuantQuips as a part of the national level hackathon `Hack4Soc 2.0` organized by IEEE CompSoc in RVCE and we were `finalists`.
+Quant-Quips is a platform designed to simplify and enhance the interaction with financial datasets. Utilizing modern technology, it provides users with intuitive tools for data analysis and visualization, making quantitative analysis more accessible and efficient.
 
 This project is focused on leveraging Generative AI to make informed decisions in Algorithmic trading and Analysis of markets in semantic perspectives.
 
@@ -27,7 +25,7 @@ To get started with QuantQuips Revamped, follow these steps:
 
 ```bash
 # Clone the repository
-git clone https://github.com/KTS-o7/QuantQuipsRevamped.git
+git clone https://github.com/BipinRajC/Quant-Quips.git
 
 #Create virtual env
 python -m venv env
@@ -41,14 +39,6 @@ pip install -r requirements.txt
 #start the app and explore !
 streamlit run Home.py
 ```
-
-### Contributing:
-
-Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
-
-### License:
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ### Project Screenshots:
 
