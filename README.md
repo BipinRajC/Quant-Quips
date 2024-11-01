@@ -1,13 +1,8 @@
-## QuantQuips Revamped
+## QuantQuips
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/KTS-o7/QuantQuipsRevamped.svg)](https://github.com/KTS-o7/QuantQuipsRevamped/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/KTS-o7/QuantQuipsRevamped.svg)](https://github.com/KTS-o7/QuantQuipsRevamped/network)
-[![GitHub issues](https://img.shields.io/github/issues/KTS-o7/QuantQuipsRevamped.svg)](https://github.com/KTS-o7/QuantQuipsRevamped/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/KTS-o7/QuantQuipsRevamped.svg)](https://github.com/KTS-o7/QuantQuipsRevamped/pulls)
-![Python](https://img.shields.io/badge/Python-3.12-blue.svg)
+<span style="color: lightblue;">Quantquips, a cutting-edge backtesting platform seamlessly crafted with Streamlit and powered by Python. Elevate your trading strategies with precision on our dynamic backtesting page, unleash the power of genetic algorithms to discover optimal parameters, and let our sophisticated LLM guide you through the intricate realm of algorithmic trading. Elevate your trading experience with Quantquips - where innovation meets precision.</span>
 
-Welcome to QuantQuips Revamped! This project aims to enhance the functionality and user experience of the original QuantQuips project.
+> This was developed from scratch by our team, QuantQuips as a part of the national level hackathon `Hack4Soc 2.0` organized by IEEE CompSoc in RVCE and we were `finalists`.
 
 This project is focused on leveraging Generative AI to make informed decisions in Algorithmic trading and Analysis of markets in semantic perspectives.
 
@@ -54,10 +49,6 @@ Contributions are welcome! If you have any ideas, suggestions, or bug reports, p
 ### License:
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-### Stargazer Graph:
-
-[![Star History Chart](https://api.star-history.com/svg?repos=KTS-o7/QuantQuipsRevamped&type=Date)](https://star-history.com/#KTS-o7/QuantQuipsRevampedr&Date)
 
 ### Project Screenshots:
 
